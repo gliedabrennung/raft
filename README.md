@@ -8,7 +8,7 @@ This project is an implementation of the Raft consensus algorithm in Go. It supp
 - **Election Restriction:** Nodes only vote for candidates with a log that is as up-to-date as their own.
 - **Log Replication:** The leader replicates entries to all followers and commits them once a majority acknowledgment is received.
 - **Persistence:** Node state (`currentTerm`, `votedFor`, `log`) is saved to JSON files on disk, allowing nodes to recover after a crash.
-- **Raftfile v2:** Support for environment sections (e.g., `[local]`, `[production]`) for easy switching between configurations.
+- **Raftfile:** Support for environment sections (e.g., `[local]`, `[production]`) for easy switching between configurations (WIP).
 - **Multi-node Runner:** Ability to start the entire cluster with a single command for local development.
 - **Docker Support:** Ready for containerization with a provided Dockerfile.
 - **Unit Testing:** Comprehensive tests for configuration, Raft core logic, and storage.
