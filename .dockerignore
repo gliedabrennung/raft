@@ -1,0 +1,4 @@
+.idea/
+.git/
+node_*_state.json
+raft-node
