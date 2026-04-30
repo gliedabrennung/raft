@@ -44,13 +44,6 @@ func TestHTTPTransport_Status(t *testing.T) {
 
 func TestHTTPTransport_Command(t *testing.T) {
 	node := raft.NewNode(1, nil, &mockStorage{})
-	// Manually set node state to Leader to allow commands
-	// Note: In real scenarios, state transitions are handled by the node's loop.
-	// For unit testing the handler, we force the state.
-	// However, we can't easily set private state field from another package.
-	// We might need to add a test-only helper or use a more integration-like approach.
-	// For now, let's test the "not leader" case.
-
 	transport := NewHTTPTransport(node)
 
 	cmdReq := map[string]string{"command": "test-cmd"}
@@ -64,7 +57,6 @@ func TestHTTPTransport_Command(t *testing.T) {
 	handler := http.HandlerFunc(transport.handleCommand)
 	handler.ServeHTTP(rr, req)
 
-	// Since node is Follower by default, it should return Service Unavailable (503)
 	if status := rr.Code; status != http.StatusServiceUnavailable {
 		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusServiceUnavailable)
 	}
